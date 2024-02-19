@@ -61,8 +61,21 @@ function EXECUTE
 #   1. Обновление базовых пакетов системы.
 #----------------------------------------------------------------------------------------------#
 
+LOG "1. Base system packages updating."
+
 # Проверка обновлений пакетов системы
 EXECUTE "sudo apt update"
 
 # Обновление пакетов системы
 EXECUTE "sudo apt upgrade"
+
+
+
+
+#----------------------------------------------------------------------------------------------#
+#   123. Настройка красивостей
+#----------------------------------------------------------------------------------------------#
+
+LOG "123. Some beauty settings."
+
+EXECUTE "wget --no-check-certificate https://raw.githubusercontent.com/strapidustra125/setup/master/pictures/wallpaper-mazda-back.jpg"
