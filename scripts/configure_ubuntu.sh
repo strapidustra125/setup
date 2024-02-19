@@ -16,6 +16,24 @@
 # Конфигурируемая система
 SYSTEM="Ubuntu"
 
+# Префикс логов
+PREFIX=": -------- : "
+
+# Разделитель логов
+DEVIDER=": -------- : -------- : -------- : -------- : -------- :"
+
+
+#----------------------------------------------------------------------------------------------#
+#   Список пакетов для установки
+#----------------------------------------------------------------------------------------------#
+
+# apt
+# "git"
+
+
+
+# vscode
+
 
 #----------------------------------------------------------------------------------------------#
 #   Логгирование
@@ -24,15 +42,22 @@ SYSTEM="Ubuntu"
 # Лог в случае ошибки с выходом из скрипта
 function LOG_ERR
 {
-    echo -e "\nERROR: $1\n"
-    echo -e "ERROR: \"${SYSTEM}\" configuration failed :("
+    echo -e "\n${PREFIX}ERROR: $1\n"
+    echo -e "${PREFIX}ERROR: \"${SYSTEM}\" configuration failed :("
     exit -1
 }
 
 # Штатный лог
 function LOG
 {
-    echo -e "\n$1\n"
+    echo -e "\n${PREFIX}$1\n"
+}
+
+# Лог для группы команд
+function LOG_TITLE
+{
+    echo -e "\n${DEVIDER}\n"
+    LOG "$1"
 }
 
 
@@ -61,7 +86,7 @@ function EXECUTE
 #   1. Обновление базовых пакетов системы.
 #----------------------------------------------------------------------------------------------#
 
-LOG "1. Base system packages updating."
+LOG_TITLE "1. Base system packages updating."
 
 # Проверка обновлений пакетов системы
 EXECUTE "sudo apt update"
@@ -71,11 +96,42 @@ EXECUTE "sudo apt upgrade"
 
 
 
+#----------------------------------------------------------------------------------------------#
+#   123. Настройка окружения
+#----------------------------------------------------------------------------------------------#
+
+LOG_TITLE "123. Environment settings."
+
+
+
+ADD_GIT_BRANCH="
+# Change console welcome string and add current git branch
+PS1='\[\033[0;32m\]\[\033[0m\033[0;32m\]\u\[\033[0;36m\] @ \[\033[0;36m\]\h \w\[\033[0;32m\]$(__git_ps1)\n\[\033[0;32m\]└─[\033[0m\033[0;32m\] \$\[\033[0m\033[0;32m\] ▶\[\033[0m\] '"
+
+LOG "Changing console welcome string and add current git branch"
+sudo echo "${ADD_GIT_BRANCH}" >> /home/$(logname)/.bashrc
+
+
+
+
+
 
 #----------------------------------------------------------------------------------------------#
 #   123. Настройка красивостей
 #----------------------------------------------------------------------------------------------#
 
-LOG "123. Some beauty settings."
+LOG_TITLE "123. Some beauty settings."
 
-EXECUTE "wget --no-check-certificate https://raw.githubusercontent.com/strapidustra125/setup/master/pictures/wallpaper-mazda-back.jpg"
+WP_DIR="/home/$(logname)/Pictures/wallpapers"
+WP_FILE="wallpaper-mazda-back.jpg"
+WP_URL="https://raw.githubusercontent.com/strapidustra125/setup/master/pictures/${WP_FILE}"
+
+if ! [ -d ${WP_DIR} ];
+then
+    EXECUTE "mkdir ${WP_DIR}"
+fi
+
+if ! [ -d ${WP_DIR}/${WP_FILE}  ];
+then
+    EXECUTE "wget --no-check-certificate -O ${WP_DIR}/${WP_FILE} ${WP_URL}"
+fi
