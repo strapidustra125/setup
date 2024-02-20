@@ -52,10 +52,10 @@ PACKAGES_C_CPP=(
 
 # Пакеты для разработки
 PACKAGES_DEVELOPMENT=(
+    # wireshark               # Сниффер трафика на сетевых интерфейсах
     git                     # Система контроля версия
     valgrind                # Утилита поиска утечек памяти
     gdb                     # Отладчик
-    wireshark               # Сниффер трафика на сетевых интерфейсах
     sqlitebrowser           # Посмотреть в sqlite БД
     meld                    # Сравнивалка файлов
 )
@@ -67,12 +67,14 @@ PACKAGES_MULTIMEDIA=(
 
 # Пакеты для общения
 PACKAGES_COMMUNICATION=(
-
+    telegram-desktop        # Телеграм
 )
 
+# Устанавливаются не из стандартных репозиториев
+#
 # vscode
-# telegram
 # discord
+# google chrome
 
 
 #----------------------------------------------------------------------------------------------#
@@ -98,7 +100,7 @@ function LOG_TITLE
 {
     echo -e "\n${DEVIDER}\n"
     LOG "${TITLE_COUNTER}. $1"
-    TITLE_COUNTER=${TITLE_COUNTER}+1
+    TITLE_COUNTER=$((${TITLE_COUNTER}+1))
 }
 
 
@@ -153,7 +155,7 @@ then
     EXECUTE "sudo apt update"
 
     # Обновление пакетов системы
-    EXECUTE "sudo apt upgrade"
+    EXECUTE "sudo apt upgrade -y"
 
 fi # if [ "${FLAG_UPDATE_PACKAGES}" ]
 
@@ -242,6 +244,12 @@ set_prompt_line
     # Добавление в .bashrc для root пользователя
     LOG "Changing console welcome string and add current git branch for user \"root\""
     sudo echo "${ADD_GIT_BRANCH}" >> /root/.bashrc
+
+
+    # ----------------------------- #
+
+    # Генерация ssh ключей
+    EXECUTE "sh-keygen -N "" -f /home/$(logname)/.ssh/id_rsa"
 
 fi # if [ "${FLAG_SET_ENVIRONMENT}" ]
 
