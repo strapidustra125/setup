@@ -1,3 +1,20 @@
+# Инициализация репозитория
+
+Запустить такую команду:
+
+```bash
+wget -O - https://raw.githubusercontent.com/strapidustra125/setup/master/scripts/init_this_repo.sh | bash || rm -rf init_this_repo.sh
+```
+
+Она запускает скрипт и удаляет его после выполнения.
+Клонируется репозиторий целиком.
+
+Потом:
+
+```bash
+cd ~/Documents/repo/github/
+```
+
 # Конфигурация Ubuntu
 
 ### 1. Скрипт по настройке Ubuntu
