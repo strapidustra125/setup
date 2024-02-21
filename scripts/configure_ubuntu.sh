@@ -31,10 +31,11 @@ DEVIDER=": -------- : -------- : -------- : -------- : -------- :"
 #   Закоммнтировать ненужное.
 #----------------------------------------------------------------------------------------------#
 
-FLAG_UPDATE_PACKAGES="enable"         # Обновление базовых пакетов системы
-FLAG_ADDITIONAL_PACKAGES="enable"     # Установка дополнительных пакетов
-FLAG_SET_ENVIRONMENT="enable"         # Настройка окружения
-FLAG_MAKE_BEAUTY="enable"             # Настройка красивостей
+FLAG_UPDATE_PACKAGES="enable"           # Обновление базовых пакетов системы
+FLAG_ADDITIONAL_PACKAGES="enable"       # Установка дополнительных пакетов
+FLAG_SET_ENVIRONMENT="enable"           # Настройка окружения
+FLAG_SET_BASHRC="enable"                # Настройка файла .bashrc
+FLAG_MAKE_BEAUTY="enable"               # Настройка красивостей
 
 #----------------------------------------------------------------------------------------------#
 #   Список пакетов для установки
@@ -218,6 +219,8 @@ then
     EXECUTE "telegram-desktop &"
     sleep 5
 
+    LOG "Telegram PID: $(jobs -p)"
+
     # Закрыть Telegram
     kill $(jobs -p)
 
@@ -263,14 +266,13 @@ fi # if [ "${FLAG_UPDATE_PACKAGES}" ]
 
 
 #----------------------------------------------------------------------------------------------#
-#   Настройка окружения
+#   Настройка файла .bashrc
 #----------------------------------------------------------------------------------------------#
 
-if [ "${FLAG_SET_ENVIRONMENT}" ]
+if [ "${FLAG_SET_BASHRC}" ]
 then
 
-    LOG_TITLE "Environment settings."
-
+    LOG_TITLE ".bashrc settings."
 
     # Строка с соблюдением отступов, которая добавится в .bashrc
     ADD_GIT_BRANCH="
@@ -313,7 +315,19 @@ set_prompt_line
     EXECUTE "sudo echo \"${ADD_GIT_BRANCH}\" >> /root/.bashrc"
 
 
-    # ----------------------------- #
+    notify-send ".bashrc was successfully updated."
+
+fi # if [ "${FLAG_SET_BASHRC}" ]
+
+
+#----------------------------------------------------------------------------------------------#
+#   Настройка окружения
+#----------------------------------------------------------------------------------------------#
+
+if [ "${FLAG_SET_ENVIRONMENT}" ]
+then
+
+    LOG_TITLE "Environment settings."
 
     # Настройка гита
 
