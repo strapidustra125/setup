@@ -47,6 +47,8 @@ PACKAGES_SYSTEM=(
     flameshot               # Утилита для создания скриншотов
     snapd                   # Пакетный менеджер
     gedit                   # Текстовый редактор
+    mc                      # Файловый менеджер
+    expect                  # Работа со скриптами
 )
 
 # Пакеты для C/C++
@@ -233,6 +235,34 @@ then
 fi # if [ "${FLAG_ADDITIONAL_PACKAGES}" ]
 
 #----------------------------------------------------------------------------------------------#
+#   Настройка красивостей
+#----------------------------------------------------------------------------------------------#
+
+if [ "${FLAG_MAKE_BEAUTY}" ]
+then
+
+    LOG_TITLE "Some beauty settings."
+
+    WP_DIR="/home/$(logname)/Pictures/wallpapers"
+    WP_FILE="wallpaper-mazda-back.jpg"
+    WP_URL="https://raw.githubusercontent.com/strapidustra125/setup/master/pictures/${WP_FILE}"
+
+    if ! [ -d ${WP_DIR} ];
+    then
+        EXECUTE "mkdir -p ${WP_DIR}"
+    fi
+
+    if ! [ -f ${WP_DIR}/${WP_FILE}  ];
+    then
+        EXECUTE "wget --no-check-certificate -O ${WP_DIR}/${WP_FILE} ${WP_URL}"
+    fi
+
+    notify-send "All beauty settings was successfully done."
+
+fi # if [ "${FLAG_UPDATE_PACKAGES}" ]
+
+
+#----------------------------------------------------------------------------------------------#
 #   Настройка окружения
 #----------------------------------------------------------------------------------------------#
 
@@ -285,23 +315,6 @@ set_prompt_line
 
     # ----------------------------- #
 
-    # Генерация ssh ключей
-    # ssh-keygen -N "" -f /home/nikolay/.ssh/id_rsa
-
-    SSH_DIR="/home/$(logname)/.ssh"
-    SSH_FILE="id_rsa"
-    if ! [ -d  ${SSH_DIR} ];
-    then
-        EXECUTE "mkdir -p ${SSH_DIR}"
-    fi
-
-    if ! [ -f ${SSH_FILE} ];
-    then
-        EXECUTE "ssh-keygen -N \"\" -f ${SSH_DIR}/${SSH_FILE}"
-    fi
-
-    # ----------------------------- #
-
     # Настройка гита
 
     DEF_EMAIL="N.Novikov@transtelematica.ru"
@@ -311,34 +324,28 @@ set_prompt_line
     git config --global user.name "${DEF_NAME}"
 
 
+    # ----------------------------- #
+
+    # Генерация ssh ключей
+    # ssh-keygen -N "" -f /home/nikolay/.ssh/id_rsa
+
+    EXECUTE "ssh-keygen"
+
+
+    # SSH_DIR="/home/$(logname)/.ssh"
+    # SSH_FILE="id_rsa"
+    # if ! [ -d  ${SSH_DIR} ];
+    # then
+    #     EXECUTE "mkdir -p ${SSH_DIR}"
+    # fi
+
+    # if ! [ -f ${SSH_FILE} ];
+    # then
+    #     EXECUTE "ssh-keygen -N \"\" -f ${SSH_DIR}/${SSH_FILE}"
+    # fi
+
+
     notify-send "All environment settings was successfully done."
 
 fi # if [ "${FLAG_SET_ENVIRONMENT}" ]
 
-
-#----------------------------------------------------------------------------------------------#
-#   Настройка красивостей
-#----------------------------------------------------------------------------------------------#
-
-if [ "${FLAG_MAKE_BEAUTY}" ]
-then
-
-    LOG_TITLE "Some beauty settings."
-
-    WP_DIR="/home/$(logname)/Pictures/wallpapers"
-    WP_FILE="wallpaper-mazda-back.jpg"
-    WP_URL="https://raw.githubusercontent.com/strapidustra125/setup/master/pictures/${WP_FILE}"
-
-    if ! [ -d ${WP_DIR} ];
-    then
-        EXECUTE "mkdir -p ${WP_DIR}"
-    fi
-
-    if ! [ -f ${WP_DIR}/${WP_FILE}  ];
-    then
-        EXECUTE "wget --no-check-certificate -O ${WP_DIR}/${WP_FILE} ${WP_URL}"
-    fi
-
-    notify-send "All beauty settings was successfully done."
-
-fi # if [ "${FLAG_UPDATE_PACKAGES}" ]
