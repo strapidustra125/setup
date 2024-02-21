@@ -31,14 +31,23 @@ DEVIDER=": -------- : -------- : -------- : -------- : -------- :"
 #   Закоммнтировать ненужное.
 #----------------------------------------------------------------------------------------------#
 
-# FLAG_UPDATE_PACKAGES="enable"         # Обновление базовых пакетов системы
+FLAG_UPDATE_PACKAGES="enable"         # Обновление базовых пакетов системы
 FLAG_ADDITIONAL_PACKAGES="enable"     # Установка дополнительных пакетов
-# FLAG_SET_ENVIRONMENT="enable"         # Настройка окружения
-# FLAG_MAKE_BEAUTY="enable"             # Настройка красивостей
+FLAG_SET_ENVIRONMENT="enable"         # Настройка окружения
+FLAG_MAKE_BEAUTY="enable"             # Настройка красивостей
 
 #----------------------------------------------------------------------------------------------#
 #   Список пакетов для установки
 #----------------------------------------------------------------------------------------------#
+
+# Системные пакеты
+PACKAGES_SYSTEM=(
+    language-pack-ru        # Русская раскладка клавиатуры
+    gnome-tweaks            # Дополнительные настройки
+    flameshot               # Утилита для создания скриншотов
+    snapd                   # Пакетный менеджер
+    gedit                   # Текстовый редактор
+)
 
 # Пакеты для C/C++
 PACKAGES_C_CPP=(
@@ -63,18 +72,13 @@ PACKAGES_DEVELOPMENT=(
 # Мультимедиа пакеты
 PACKAGES_MULTIMEDIA=(
     vlc                     # Медиапроигрыватель
+    gimp                    # Редактор изображений
 )
 
 # Пакеты для общения
 PACKAGES_COMMUNICATION=(
-    telegram-desktop        # Телеграм
-)
 
-# Устанавливаются не из стандартных репозиториев
-#
-# vscode
-# discord
-# google chrome
+)
 
 
 #----------------------------------------------------------------------------------------------#
@@ -157,6 +161,8 @@ then
     # Обновление пакетов системы
     EXECUTE "sudo apt upgrade -y"
 
+    notify-send "All base system packages was successfully updated."
+
 fi # if [ "${FLAG_UPDATE_PACKAGES}" ]
 
 
@@ -168,6 +174,12 @@ if [ "${FLAG_ADDITIONAL_PACKAGES}" ]
 then
 
     LOG_TITLE "Additional packages installing."
+
+    # Системные пакеты
+    for var in ${PACKAGES_SYSTEM[*]}
+    do
+        INSTALL_PACKAGE ${var}
+    done
 
     # Пакеты для C/C++
     for var in ${PACKAGES_C_CPP[*]}
@@ -192,6 +204,31 @@ then
     do
         INSTALL_PACKAGE ${var}
     done
+
+    # ----------------------------- #
+
+    # Установка Telegram
+    EXECUTE "wget https://telegram.org/dl/desktop/linux"
+    EXECUTE "sudo tar xJf linux -C /opt/"
+    EXECUTE "sudo ln -s /opt/Telegram/Telegram /usr/local/bin/telegram-desktop"
+
+    # Запуск Telegram для добавления в список приложений
+    EXECUTE "telegram-desktop &"
+    sleep 5
+
+    # Закрыть Telegram
+    kill $(jobs -p)
+
+    # Удалить скаченный установочник
+    EXECUTE "sudo rm -rf ./linux"
+
+    # ----------------------------- #
+
+    # Установка Discord
+    EXECUTE "sudo snap install discord"
+
+
+    notify-send "All additional packages was successfully loaded."
 
 fi # if [ "${FLAG_ADDITIONAL_PACKAGES}" ]
 
@@ -239,17 +276,42 @@ set_prompt_line
 
     # Добавление в .bashrc текущего пользователя
     LOG "Changing console welcome string and add current git branch for user \"$(logname)\""
-    sudo echo "${ADD_GIT_BRANCH}" >> /home/$(logname)/.bashrc
+    EXECUTE "sudo echo \"${ADD_GIT_BRANCH}\" >> /home/$(logname)/.bashrc"
 
     # Добавление в .bashrc для root пользователя
     LOG "Changing console welcome string and add current git branch for user \"root\""
-    sudo echo "${ADD_GIT_BRANCH}" >> /root/.bashrc
+    EXECUTE "sudo echo \"${ADD_GIT_BRANCH}\" >> /root/.bashrc"
 
 
     # ----------------------------- #
 
     # Генерация ssh ключей
-    EXECUTE "sh-keygen -N "" -f /home/$(logname)/.ssh/id_rsa"
+    # ssh-keygen -N "" -f /home/nikolay/.ssh/id_rsa
+
+    SSH_DIR="/home/$(logname)/.ssh"
+    SSH_FILE="id_rsa"
+    if ! [ -d  ${SSH_DIR} ];
+    then
+        EXECUTE "mkdir -p ${SSH_DIR}"
+    fi
+
+    if ! [ -f ${SSH_FILE} ];
+    then
+        EXECUTE "ssh-keygen -N \"\" -f ${SSH_DIR}/${SSH_FILE}"
+    fi
+
+    # ----------------------------- #
+
+    # Настройка гита
+
+    DEF_EMAIL="N.Novikov@transtelematica.ru"
+    DEF_NAME="Nikolay Novikov"
+
+    git config --global user.email "${DEF_EMAIL}"
+    git config --global user.name "${DEF_NAME}"
+
+
+    notify-send "All environment settings was successfully done."
 
 fi # if [ "${FLAG_SET_ENVIRONMENT}" ]
 
@@ -269,12 +331,14 @@ then
 
     if ! [ -d ${WP_DIR} ];
     then
-        EXECUTE "mkdir ${WP_DIR}"
+        EXECUTE "mkdir -p ${WP_DIR}"
     fi
 
-    if ! [ -d ${WP_DIR}/${WP_FILE}  ];
+    if ! [ -f ${WP_DIR}/${WP_FILE}  ];
     then
         EXECUTE "wget --no-check-certificate -O ${WP_DIR}/${WP_FILE} ${WP_URL}"
     fi
+
+    notify-send "All beauty settings was successfully done."
 
 fi # if [ "${FLAG_UPDATE_PACKAGES}" ]

@@ -1,5 +1,7 @@
 ### Изменение строки приглашения в консоли с добавление ветки.
 
+Добавить в конец файла ```.bashrc```:
+
 ```bash
 # Get git branch name
 function git-current-branch
