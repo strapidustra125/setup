@@ -1,0 +1,72 @@
+[
+	{
+		"name": "ssu-island",
+		"rootPath": "/home/nikolay/Documents/repo/ssu/island",
+		"paths": [],
+		"tags": ["ssu"],
+		"enabled": true
+	},
+	{
+		"name": "ssu-srspecification",
+		"rootPath": "/home/nikolay/Documents/repo/ssu/srspecification",
+		"paths": [],
+		"tags": ["ssu"],
+		"enabled": true
+	},
+	{
+		"name": "github-setup",
+		"rootPath": "/home/nikolay/Documents/repo/github/setup",
+		"paths": [],
+		"tags": ["github"],
+		"enabled": true
+	},
+	{
+		"name": "ttm-cpp",
+		"rootPath": "/home/nikolay/Documents/repo/ttm/cpp",
+		"paths": [],
+		"tags": ["ttm"],
+		"enabled": true
+	},
+	{
+		"name": "ttm-qt",
+		"rootPath": "/home/nikolay/Documents/repo/ttm/qt",
+		"paths": [],
+		"tags": ["ttm"],
+		"enabled": true
+	},
+	{
+		"name": "ttm-mainmeta",
+		"rootPath": "/home/nikolay/Documents/repo/ttm/mainmeta",
+		"paths": [],
+		"tags": ["ttm"],
+		"enabled": true
+	},
+	{
+		"name": "ttm-proto",
+		"rootPath": "/home/nikolay/Documents/repo/ttm/meta",
+		"paths": [],
+		"tags": ["ttm"],
+		"enabled": true
+	},
+	{
+		"name": "ttm-toolchain",
+		"rootPath": "/home/nikolay/Documents/repo/ttm/mnt-toolchain",
+		"paths": [],
+		"tags": ["ttm"],
+		"enabled": true
+	},
+	{
+		"name": "ttm-npds",
+		"rootPath": "/home/nikolay/Documents/repo/ttm/npds",
+		"paths": [],
+		"tags": ["ttm"],
+		"enabled": true
+	},
+	{
+		"name": "ttm-npds-pd",
+		"rootPath": "/home/nikolay/Documents/repo/ttm/pd",
+		"paths": [],
+		"tags": ["ttm"],
+		"enabled": true
+	}
+]
