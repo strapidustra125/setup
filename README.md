@@ -55,3 +55,12 @@ wget -O - https://raw.githubusercontent.com/strapidustra125/setup/master/scripts
     - **_Keyboard & Mouse_**: добавить смену раскладки на ```Alt + Shift```
     - **_Startup Applications_**: Добавить **_discord_** и **_flameshot_**
     - **_Top Bar_**: Расширить формат времени
+
+### 4. Дополнительные настройки
+
+1. Nautilus
+    - Views -> Show sidebar
+    - Views -> Sort folders before files
+    - Views -> Allow folders to de expanded
+    - Views -> Icon View Captions: First - Size, Second - Permissions
+    - List Columns -> Size, Type, Permissions, Modified-Time, Star

@@ -46,3 +46,20 @@ function EXECUTE
 
     LOG "... \"$1\" success!"
 }
+
+# Установка пакета из стандартного репозитория через apt
+function INSTALL_PACKAGE
+{
+    LOG "Installing package \"$1\"..."
+
+        INSTALLED=$(apt list $1 2>>/dev/null | grep installed)
+
+        if [[ -z ${INSTALLED} ]]
+        then
+            echo -e "Required package \"$1\" is NOT INSTALLED"
+            echo -e "Installing...\n"
+            EXECUTE "sudo apt install -y $1"
+        else
+            LOG "Required package \"$1\" is INSTALLED"
+        fi
+}
