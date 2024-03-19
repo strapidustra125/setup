@@ -64,3 +64,7 @@ wget -O - https://raw.githubusercontent.com/strapidustra125/setup/master/scripts
     - Views -> Allow folders to de expanded
     - Views -> Icon View Captions: First - Size, Second - Permissions
     - List Columns -> Size, Type, Permissions, Modified-Time, Star
+
+2. Terminal
+    - General -> Enable the menu accelerator key (F10) = false
+    - Unnamed -> Initial Terminal size = 180x50
