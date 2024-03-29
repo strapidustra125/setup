@@ -22,7 +22,19 @@ cd ~/Documents/repo/github/
 Запустить такую команду:
 
 ```bash
-wget -O - https://raw.githubusercontent.com/strapidustra125/setup/master/scripts/configure_ubuntu.sh | bash || rm -rf configure_ubuntu.sh
+wget -O - https://raw.githubusercontent.com/strapidustra125/setup/master/scripts/init_this_repo.sh | bash || rm -rf init_this_repo.sh
+```
+
+```bash
+cd ~/Documents/repo/github/setup/ubuntu
+```
+
+```bash
+./configure.sh
+```
+
+```bash
+./conf-git-repo.sh
 ```
 
 Она запускает скрипт и удаляет его после выполнения.
@@ -35,9 +47,10 @@ wget -O - https://raw.githubusercontent.com/strapidustra125/setup/master/scripts
     - Зайти в гугл аккаунт для синхронизации браузера.
     - Закрепить в избранных.
 
-2. **Visual Studio Code**: https://code.visualstudio.com/download
-    - Включить синхронизацию с GitHub для подтягивания расширений.
-    - Закрепить в избранных.
+2. **Cisco Secure Client Software VPN**: https://uci.service-now.com/kb_view.do?sysparm_article=KB0010201
+    - > tar xzvf cisco-secure-client*
+    - > cd vpn
+    - > sudo ./vpn_install.sh
 
 ### 3. Настройка рабочего стола
 
@@ -68,3 +81,11 @@ wget -O - https://raw.githubusercontent.com/strapidustra125/setup/master/scripts
 2. Terminal
     - General -> Enable the menu accelerator key (F10) = false
     - Unnamed -> Initial Terminal size = 180x50
+
+### 5. Почты
+
+1. Работа - СГУ
+2. Яндекс
+3. Гугл
+4. Мэйл
+5. Семейный
