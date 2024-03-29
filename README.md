@@ -19,7 +19,7 @@ cd ~/Documents/repo/github/
 
 ### 1. Скрипт по настройке Ubuntu
 
-Запустить такую команду:
+Запустить такие команды:
 
 ```bash
 wget -O - https://raw.githubusercontent.com/strapidustra125/setup/master/scripts/init_this_repo.sh | bash || rm -rf init_this_repo.sh
@@ -32,6 +32,10 @@ cd ~/Documents/repo/github/setup/ubuntu
 ```bash
 ./configure.sh
 ```
+
+Далее нужно добавить ssh-ключи в github и gitlab ТТМ.
+
+И запустить следующий скрипт:
 
 ```bash
 ./conf-git-repo.sh
