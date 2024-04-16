@@ -17,6 +17,7 @@ PACKAGES_SYSTEM=(
     mc                      # Файловый менеджер
     expect                  # Работа со скриптами
     p7zip                   # 7zip
+    rar                     # Работа с .rar архивами
     samba                   # Шаринг директорий
     sshpass                 # Подсовывание пароля в ssh в скрипты
     gnome-sushi             # Предпросмотр в Nautilus

@@ -13,11 +13,16 @@ EMAIL="strapidustra125@gmail.com"
 
 NAME="Nikolay Novikov"
 
-git config --global user.email "${DEF_EMAIL}"
-git config --global user.name "${DEF_NAME}"
+git config --global user.email "${EMAIL_TTM}"
+git config --global user.name "${NAME}"
 
 
 # ----------------------------- #
+
+REPO_DIR="~/Documents/repo/"
+mkdir $REPO_DIR
+cd $REPO_DIR
+
 
 
 
