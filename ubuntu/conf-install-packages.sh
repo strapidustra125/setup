@@ -21,6 +21,7 @@ PACKAGES_SYSTEM=(
     samba                   # Шаринг директорий
     sshpass                 # Подсовывание пароля в ssh в скрипты
     gnome-sushi             # Предпросмотр в Nautilus
+    openconnect             # Для подключения к VPN ТТМ
     libpangox-1.0-0         # Для поддержки оконного режима Cisco VPN
 )
 
