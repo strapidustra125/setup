@@ -22,6 +22,7 @@ PACKAGES_SYSTEM=(
     sshpass                 # Подсовывание пароля в ssh в скрипты
     gnome-sushi             # Предпросмотр в Nautilus
     openconnect             # Для подключения к VPN ТТМ
+    network-manager-openconnect-gnome    # 
     libpangox-1.0-0         # Для поддержки оконного режима Cisco VPN
 )
 
