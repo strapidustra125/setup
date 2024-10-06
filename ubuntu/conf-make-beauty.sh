@@ -6,7 +6,7 @@
 LOG_TITLE "Some beauty settings."
 
 WP_DIR="/home/$(logname)/Pictures/wallpapers"
-WP_FILE="wallpaper-mazda-back.jpg"
+WP_FILE="wallpaper-mazda.jpg"
 WP_URL="https://raw.githubusercontent.com/strapidustra125/setup/master/pictures/${WP_FILE}"
 
 if ! [ -d ${WP_DIR} ];
